@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "331432236158",
+    "project_id": "kas-app-67b16",
+    "storage_bucket": "kas-app-67b16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331432236158:android:e5af8e5bc219b0549b342f",
+        "android_client_info": {
+          "package_name": "com.kas.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331432236158-atcjknei6tl7rik96sjfgvgi04f1qni1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs3vBGjPU0f7B4agivyXdgSnYXz3YSO5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331432236158-atcjknei6tl7rik96sjfgvgi04f1qni1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
