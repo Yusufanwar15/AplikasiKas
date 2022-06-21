@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kas_app/screen/dashboard_screen.dart';
+import 'package:kas_app/screen/tambah_anggota.dart';
 
 final db = FirebaseFirestore.instance;
 
@@ -15,6 +16,13 @@ class _AnggotaState extends State<Anggota> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: FloatingActionButton(
+        onPressed: () {
+          // When the User clicks on the button, display a BottomSheet
+          Navigator.of(context).push(MaterialPageRoute(builder: (_) => TambahAnggota()));
+        },
+        child: const Icon(Icons.add),
+      ),
       body: SafeArea(
         child: Column(
           children: [

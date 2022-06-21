@@ -21,7 +21,7 @@ class _dashboard_screenState extends State<dashboard_screen> {
       //   backgroundColor: Colors.amber,
       //   elevation: 0,
       // ),
-      backgroundColor: Colors.yellow,
+      backgroundColor: Colors.blue,
       body: SafeArea(
         child: Stack(
           // alignment: AlignmentDirectional.topCenter,
@@ -31,8 +31,11 @@ class _dashboard_screenState extends State<dashboard_screen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Total Kas', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                  Text('hai dude'),
+                  // Text(
+                  //   'Total Kas',
+                  //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  // ),
+                  // Text('hai dude'),
                 ],
               ),
             ),
@@ -43,7 +46,7 @@ class _dashboard_screenState extends State<dashboard_screen> {
                 height: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
+                    primary: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
@@ -56,9 +59,44 @@ class _dashboard_screenState extends State<dashboard_screen> {
                 ),
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(top: 120,left: 20, right: 20),
+              height: 150,
+              child: Card(
+                elevation: 15,
+                color: Colors.white,
+                // shadowColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: Colors.grey.withOpacity(0.5),
+                    )),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => Pemasukan()));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Image.asset(
+                      //   'images/bank.png',
+                      //   height: 50,
+                      //   width: 50,
+                      // ),
+                      Text(
+                        'Total Kas',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
             Expanded(
                 child: Container(
-                    margin: EdgeInsets.only(top: 110),
+                    margin: EdgeInsets.only(top: 280),
                     child: GridView(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -71,21 +109,25 @@ class _dashboard_screenState extends State<dashboard_screen> {
                         Card(
                           elevation: 15,
                           color: Colors.white,
-                          shadowColor: Colors.black,
+                          // shadowColor: Colors.black,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                               side: BorderSide(
-                                color: Colors.white10.withOpacity(0.5),
+                                color: Colors.grey.withOpacity(0.5),
                               )),
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (_) => Pemasukan()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => Pemasukan()));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset('images/bank.png', height: 50, width: 50,),
+                                Image.asset(
+                                  'images/bank.png',
+                                  height: 50,
+                                  width: 50,
+                                ),
                                 Text(
                                   'Pemasukan',
                                   style: TextStyle(
@@ -107,13 +149,17 @@ class _dashboard_screenState extends State<dashboard_screen> {
                               )),
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (_) => Pengeluaran()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => Pengeluaran()));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset('images/cash.png', height: 50, width: 50 ,),
+                                Image.asset(
+                                  'images/cash.png',
+                                  height: 50,
+                                  width: 50,
+                                ),
                                 Text(
                                   'Pengeluaran',
                                   style: TextStyle(
@@ -124,34 +170,34 @@ class _dashboard_screenState extends State<dashboard_screen> {
                             ),
                           ),
                         ),
-                        Card(
-                          elevation: 15,
-                          color: Colors.white,
-                          shadowColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(
-                                color: Colors.white10.withOpacity(0.5),
-                              )),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (_) => TambahAnggota()));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('images/add.png', height: 50, width: 50,),
-                                Text(
-                                  'Tambah Anggota',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                        // Card(
+                        //   elevation: 15,
+                        //   color: Colors.white,
+                        //   shadowColor: Colors.black,
+                        //   shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(10),
+                        //       side: BorderSide(
+                        //         color: Colors.white10.withOpacity(0.5),
+                        //       )),
+                        //   child: InkWell(
+                        //     onTap: () {
+                        //       Navigator.of(context).push(
+                        //           MaterialPageRoute(builder: (_) => TambahAnggota()));
+                        //     },
+                        //     child: Column(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset('images/add.png', height: 50, width: 50,),
+                        //         Text(
+                        //           'Tambah Anggota',
+                        //           style: TextStyle(
+                        //               fontWeight: FontWeight.bold,
+                        //               fontSize: 18),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         Card(
                           elevation: 15,
                           color: Colors.white,
@@ -167,9 +213,13 @@ class _dashboard_screenState extends State<dashboard_screen> {
                                   MaterialPageRoute(builder: (_) => Anggota()));
                             },
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center, 
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset('images/member.png', height: 50, width: 50,),
+                                Image.asset(
+                                  'images/member.png',
+                                  height: 50,
+                                  width: 50,
+                                ),
                                 Text(
                                   'Anggota',
                                   style: TextStyle(
@@ -192,12 +242,16 @@ class _dashboard_screenState extends State<dashboard_screen> {
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (_) => Anggota()));
+                                  MaterialPageRoute(builder: (_) => CatatTransaksi()));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset('images/lap.png', height: 50, width: 50,),
+                                Image.asset(
+                                  'images/lap.png',
+                                  height: 50,
+                                  width: 50,
+                                ),
                                 Text(
                                   'Laporan Keuangan',
                                   style: TextStyle(
@@ -208,7 +262,7 @@ class _dashboard_screenState extends State<dashboard_screen> {
                             ),
                           ),
                         ),
-                        
+
                         // Card(
                         //   elevation: 15,
                         //   color: Colors.white,
