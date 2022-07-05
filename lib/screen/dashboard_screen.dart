@@ -17,14 +17,10 @@ class _dashboard_screenState extends State<dashboard_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.amber,
-      //   elevation: 0,
-      // ),
       backgroundColor: Colors.blue,
       body: SafeArea(
         child: Stack(
-          // alignment: AlignmentDirectional.topCenter,
+          alignment: AlignmentDirectional.topCenter,
           children: [
             Container(
               margin: EdgeInsets.only(left: 25, top: 25),
@@ -60,7 +56,7 @@ class _dashboard_screenState extends State<dashboard_screen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 120,left: 20, right: 20),
+              margin: EdgeInsets.only(top: 120, left: 20, right: 20),
               height: 150,
               child: Card(
                 elevation: 15,
@@ -79,16 +75,11 @@ class _dashboard_screenState extends State<dashboard_screen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Image.asset(
-                      //   'images/bank.png',
-                      //   height: 50,
-                      //   width: 50,
-                      // ),
                       Text(
                         'Total Kas',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -98,13 +89,13 @@ class _dashboard_screenState extends State<dashboard_screen> {
                 child: Container(
                     margin: EdgeInsets.only(top: 280),
                     child: GridView(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 5,
                         mainAxisSpacing: 30,
                         mainAxisExtent: 150,
                       ),
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       children: [
                         Card(
                           elevation: 15,
@@ -170,34 +161,6 @@ class _dashboard_screenState extends State<dashboard_screen> {
                             ),
                           ),
                         ),
-                        // Card(
-                        //   elevation: 15,
-                        //   color: Colors.white,
-                        //   shadowColor: Colors.black,
-                        //   shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       side: BorderSide(
-                        //         color: Colors.white10.withOpacity(0.5),
-                        //       )),
-                        //   child: InkWell(
-                        //     onTap: () {
-                        //       Navigator.of(context).push(
-                        //           MaterialPageRoute(builder: (_) => TambahAnggota()));
-                        //     },
-                        //     child: Column(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: [
-                        //         Image.asset('images/add.png', height: 50, width: 50,),
-                        //         Text(
-                        //           'Tambah Anggota',
-                        //           style: TextStyle(
-                        //               fontWeight: FontWeight.bold,
-                        //               fontSize: 18),
-                        //         )
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
                         Card(
                           elevation: 15,
                           color: Colors.white,
@@ -241,8 +204,8 @@ class _dashboard_screenState extends State<dashboard_screen> {
                               )),
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (_) => CatatTransaksi()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => CatatTransaksi()));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -262,35 +225,6 @@ class _dashboard_screenState extends State<dashboard_screen> {
                             ),
                           ),
                         ),
-
-                        // Card(
-                        //   elevation: 15,
-                        //   color: Colors.white,
-                        //   shadowColor: Colors.black,
-                        //   shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       side: BorderSide(
-                        //         color: Colors.white10.withOpacity(0.5),
-                        //       )),
-                        //   child: InkWell(
-                        //     onTap: () {
-                        //       Navigator.of(context).push(
-                        //           MaterialPageRoute(builder: (_) => CatatTransaksi()));
-                        //     },
-                        //     child: Column(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: [
-                        //         Image.asset('images/transaksi.png', width: 50, height: 50,),
-                        //         Text(
-                        //           'Catat Transaksi',
-                        //           style: TextStyle(
-                        //               fontWeight: FontWeight.bold,
-                        //               fontSize: 18),
-                        //         )
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ))),
           ],

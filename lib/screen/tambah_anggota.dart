@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kas_app/screen/anggota.dart';
 import 'package:kas_app/screen/dashboard_screen.dart';
 
 class TambahAnggota extends StatefulWidget {
-  const TambahAnggota({ Key? key }) : super(key: key);
+  const TambahAnggota({Key? key}) : super(key: key);
 
   @override
   State<TambahAnggota> createState() => _TambahAnggotaState();
@@ -20,39 +21,33 @@ class _TambahAnggotaState extends State<TambahAnggota> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               alignment: Alignment.centerLeft,
               child: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
-                  Navigator.push(context, 
-                  MaterialPageRoute(builder: (context) => dashboard_screen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Anggota()));
                 },
               ),
             ),
-
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               child: Text(
-                "Let's Get Started!",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 30
-                ),
+                "Tambah Anggota",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
             ),
-
-            SizedBox(height: 5,),
-            Container(
-              child: Text(
-                "Create an account to Q Allure to get all features",
-                style: TextStyle(
-                  fontSize: 14, color: Colors.grey
-                ),
-              ),
+            SizedBox(
+              height: 10,
             ),
-
-            SizedBox(height: 10,),
             Container(
               padding: EdgeInsets.all(20),
               child: Column(
@@ -65,11 +60,13 @@ class _TambahAnggotaState extends State<TambahAnggota> {
                         child: Icon(Icons.person_outlined),
                       ),
                       hintText: "Full Name",
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
                     ),
                   ),
-
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   TextFormField(
                     controller: phoneController,
                     decoration: InputDecoration(
@@ -78,24 +75,26 @@ class _TambahAnggotaState extends State<TambahAnggota> {
                         child: Icon(Icons.phone_android_outlined),
                       ),
                       hintText: "Phone",
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
                     ),
                   ),
                 ],
-                ),
+              ),
             ),
-
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               margin: EdgeInsets.only(top: 20, bottom: 20),
-              width: 200, height: 40,
+              width: 200,
+              height: 40,
               child: ElevatedButton(
                 onPressed: () {
                   users.add({
-                    'name' : nameController.text,
-                    'phone' : int.tryParse(phoneController.text) ?? 0
-                  }
-                  );
+                    'name': nameController.text,
+                    'phone': int.tryParse(phoneController.text)
+                  });
 
                   nameController.text = '';
                   phoneController.text = '';
@@ -107,19 +106,14 @@ class _TambahAnggotaState extends State<TambahAnggota> {
                   ),
                 ),
                 child: Text(
-                  "CREATE",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 13
-                  ),
+                  "Simpan",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                 ),
               ),
             ),
-
-            
           ],
         ),
       ),
-      
     );
   }
 }

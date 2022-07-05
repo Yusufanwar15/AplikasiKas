@@ -19,7 +19,8 @@ class _AnggotaState extends State<Anggota> {
       bottomNavigationBar: FloatingActionButton(
         onPressed: () {
           // When the User clicks on the button, display a BottomSheet
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) => TambahAnggota()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => TambahAnggota()));
         },
         child: const Icon(Icons.add),
       ),
@@ -63,6 +64,18 @@ class _AnggotaState extends State<Anggota> {
                                 title: Text(documentSnapshot['name']),
                                 subtitle:
                                     Text(documentSnapshot['phone'].toString()),
+                                trailing: IconButton(
+                                  icon: const Icon(
+                                    Icons.delete_outline,
+                                  ),
+                                  onPressed: () {
+                                    // Here We Will Add The Delete Feature
+                                    db
+                                        .collection('users')
+                                        .doc(documentSnapshot.id)
+                                        .delete();
+                                  },
+                                ),
                               );
                             });
                       }),

@@ -15,16 +15,26 @@ class Pemasukan extends StatefulWidget {
   State<Pemasukan> createState() => _PemasukanState();
 }
 
+class FirebaseController {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  getJurnal() {
+    CollectionReference jurnal = firestore.collection('pemasukan');
+
+    return jurnal.get();
+  }
+}
+
 class _PemasukanState extends State<Pemasukan> {
   TextEditingController datetimeinput = TextEditingController();
   TextEditingController jumlahkas = TextEditingController();
-  
+
   Future<List<QueryDocumentSnapshot>> getAnggota() async {
     var firebaseUser = await db.collection("users").get();
     return firebaseUser.docs;
   }
 
-  String nama = "";
+  String? nama = null;
   @override
   void setState(VoidCallback fn) {
     // TODO: implement setState
@@ -34,15 +44,75 @@ class _PemasukanState extends State<Pemasukan> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference pemasukan = firestore.collection("pemasukan");
     return Scaffold(
-      body: SafeArea(
+      body: FutureBuilder<QuerySnapshot>(
+        future: FirebaseController().getJurnal(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              // TODO: Handle this case.
+              break;
+            case ConnectionState.waiting:
+              return Center(child: CircularProgressIndicator());
+            case ConnectionState.done:
+              var dataPengeluaran = snapshot.data?.docs;
+              var totalPengeluaran = 0;
+              dataPengeluaran?.forEach((data) {
+                totalPengeluaran += int.parse(data['jumlahkas']);
+              });
+              print(totalPengeluaran.toString());
+              return Column(
+                children: [
+                  Expanded(child: bodyWidget(snapshot)),
+                  Container(
+                    margin: EdgeInsets.only(left: 20, right: 20),
+                    height: 230,
+                    width: double.infinity,
+                    child: Card(
+                      margin: EdgeInsets.only(bottom: 90),
+                      elevation: 15,
+                      color: Colors.white,
+                      // shadowColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(
+                            color: Colors.grey.withOpacity(0.5),
+                          )),
+
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Total Pemasukan',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                          Text(
+                            ' Rp. $totalPengeluaran',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 25),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            default:
+              return SizedBox();
+          }
+          return SizedBox();
+        },
+      ),
+    );
+  }
+
+  Widget bodyWidget(AsyncSnapshot<QuerySnapshot<Object?>> snapshot) => SafeArea(
         child: Column(
           children: [
             SizedBox(
               height: 20,
-            ),  
+            ),
             Container(
               alignment: Alignment.centerLeft,
               child: IconButton(
@@ -55,15 +125,21 @@ class _PemasukanState extends State<Pemasukan> {
                 },
               ),
             ),
-            SizedBox(height: 50,),
+            SizedBox(
+              height: 50,
+            ),
             FutureBuilder(
               future: getAnggota(),
               builder: (conctext,
                   AsyncSnapshot<List<QueryDocumentSnapshot>> snapshot) {
+                // return CircularProgressIndicator();
+
                 if (snapshot.connectionState == ConnectionState.done) {
+                  //   print(snapshot.data);
                   return DropdownButton(
-                    disabledHint:Text("Disabled"),
-                    hint: Text('Pilih Nama Anggota                                         '),
+                    disabledHint: Text("Disabled"),
+                    hint: Text(
+                        'Pilih Nama Anggota                                         '),
                     underline: Container(
                       height: 2,
                       color: Colors.grey,
@@ -89,28 +165,6 @@ class _PemasukanState extends State<Pemasukan> {
                 );
               },
             ),
-            // StreamBuilder(
-            //     stream: db.collection('kas').snapshots(),
-            //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-            //       if (!snapshot.hasData) {
-            //         const Text("Loading.....");
-            //       } else {
-            //         List<DropdownMenuItem> currencyItems = [];
-            //         for (int i = 0; i < snapshot.data?.docs.length; i++) {
-            //           DocumentSnapshot snap = snapshot.data.docs[i];
-            //           currencyItems.add(
-            //             DropdownMenuItem(
-            //               child: Text(
-            //                 (snap['nama']),
-            //                 style: TextStyle(color: Color(0xff11b719)),
-            //               ),
-            //               value: Text(snap['nama']),
-            //             ),
-            //           );
-            //         }
-            //       }
-            //     },
-            //   ),
             Container(
               margin: EdgeInsets.only(top: 30, right: 30, left: 30),
               child: TextField(
@@ -154,27 +208,24 @@ class _PemasukanState extends State<Pemasukan> {
                 },
               ),
             ),
-             SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               margin: EdgeInsets.only(top: 20, bottom: 20),
-              width: 200, height: 40,
+              width: 200,
+              height: 40,
               child: ElevatedButton(
                 onPressed: () {
                   db.collection('pemasukan').add({
-                    'nama' : nama,
-                    'jumlahkas' : jumlah,
-                    'tgl' : datetimeinput.text,
-                    
-                  }
-                  );
+                    'nama': nama,
+                    'jumlahkas': jumlah,
+                    'tgl': datetimeinput.text,
+                  });
 
-                  Navigator.push(context, 
-                  MaterialPageRoute(builder: (context) => dashboard_screen()));
-                  
                   datetimeinput.text = '';
-                  jumlahkas.text="";
-                  nama='';
-                  
+                  jumlahkas.text = "";
+                  nama = '';
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blue[900],
@@ -184,15 +235,11 @@ class _PemasukanState extends State<Pemasukan> {
                 ),
                 child: Text(
                   "SIMPAN",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 13
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                 ),
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
+      );
 }
