@@ -64,7 +64,7 @@ class _PengeluaranState extends State<Pengeluaran> {
                     width: double.infinity,
                     child: Card(
                       margin: EdgeInsets.only(bottom: 90),
-                      elevation: 15,
+                      elevation: 10,
                       color: Colors.white,
                       // shadowColor: Colors.black,
                       shape: RoundedRectangleBorder(

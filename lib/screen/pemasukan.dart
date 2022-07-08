@@ -72,7 +72,7 @@ class _PemasukanState extends State<Pemasukan> {
                     width: double.infinity,
                     child: Card(
                       margin: EdgeInsets.only(bottom: 90),
-                      elevation: 15,
+                      elevation: 10,
                       color: Colors.white,
                       // shadowColor: Colors.black,
                       shape: RoundedRectangleBorder(
