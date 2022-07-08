@@ -18,14 +18,16 @@ class Pemasukan extends StatefulWidget {
 class FirebaseController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  getJurnal() {
-    CollectionReference jurnal = firestore.collection('pemasukan');
+  getMasuk() {
+    CollectionReference masuk = firestore.collection('pemasukan');
 
-    return jurnal.get();
+    return masuk.get();
   }
 }
 
 class _PemasukanState extends State<Pemasukan> {
+  final _formkey = GlobalKey<FormState>();
+
   TextEditingController datetimeinput = TextEditingController();
   TextEditingController jumlahkas = TextEditingController();
 
@@ -46,7 +48,7 @@ class _PemasukanState extends State<Pemasukan> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<QuerySnapshot>(
-        future: FirebaseController().getJurnal(),
+        future: FirebaseController().getMasuk(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -55,12 +57,12 @@ class _PemasukanState extends State<Pemasukan> {
             case ConnectionState.waiting:
               return Center(child: CircularProgressIndicator());
             case ConnectionState.done:
-              var dataPengeluaran = snapshot.data?.docs;
-              var totalPengeluaran = 0;
-              dataPengeluaran?.forEach((data) {
-                totalPengeluaran += int.parse(data['jumlahkas']);
+              var dataPemasukan = snapshot.data?.docs;
+              var totalPemasukan = 0;
+              dataPemasukan?.forEach((data) {
+                totalPemasukan += int.parse(data['jumlahkas']);
               });
-              print(totalPengeluaran.toString());
+              print(totalPemasukan.toString());
               return Column(
                 children: [
                   Expanded(child: bodyWidget(snapshot)),
@@ -88,7 +90,7 @@ class _PemasukanState extends State<Pemasukan> {
                                 fontWeight: FontWeight.bold, fontSize: 30),
                           ),
                           Text(
-                            ' Rp. $totalPengeluaran',
+                            ' Rp. $totalPemasukan',
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 25),
                           ),
@@ -108,138 +110,173 @@ class _PemasukanState extends State<Pemasukan> {
   }
 
   Widget bodyWidget(AsyncSnapshot<QuerySnapshot<Object?>> snapshot) => SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => dashboard_screen()));
-                },
+        child: Form(
+          key: _formkey,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
               ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            FutureBuilder(
-              future: getAnggota(),
-              builder: (conctext,
-                  AsyncSnapshot<List<QueryDocumentSnapshot>> snapshot) {
-                // return CircularProgressIndicator();
-
-                if (snapshot.connectionState == ConnectionState.done) {
-                  //   print(snapshot.data);
-                  return DropdownButton(
-                    disabledHint: Text("Disabled"),
-                    hint: Text(
-                        'Pilih Nama Anggota                                         '),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.grey,
-                    ),
-                    items: [
-                      for (var data in snapshot.data!)
-                        DropdownMenuItem(
-                          child: Text(data.get("name")),
-                          value: data.get("name"),
-                        ),
-                    ],
-                    value: nama,
-                    onChanged: (selected) {
-                      setState(() {
-                        nama =
-                            selected?.toString() ?? "Anggota Tidak diketahui";
-                      });
-                    },
-                  );
-                }
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 30, right: 30, left: 30),
-              child: TextField(
-                controller: jumlahkas,
-                decoration: InputDecoration(
-                  // border: const OutlineInputBorder(),
-                  labelText: 'Kas Anggota',
-                  hintText: 'Jumlah Kas',
+              Container(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => dashboard_screen()));
+                  },
                 ),
-                onChanged: (String jml) {
-                  // Storing the value of the text entered in the variable value.
-                  jumlah = jml;
-                },
               ),
-            ),
-            Container(
-              margin: EdgeInsets.all(30),
-              child: TextFormField(
-                controller: datetimeinput,
-                decoration: InputDecoration(
-                    // border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.calendar_today),
-                    labelText: "Enter Date"),
-                readOnly: true,
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2010),
-                      lastDate: DateTime(2030));
-                  if (pickedDate != null) {
-                    String formatDate =
-                        DateFormat('dd-MMMM-yyyy').format(pickedDate);
-                    setState(() {
-                      datetimeinput.text = formatDate;
-                    });
-                  } else {
-                    print("Date tidak dipilih");
-                    datetimeinput.text = "";
-                  }
-                },
+              SizedBox(
+                height: 50,
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20, bottom: 20),
-              width: 200,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: () {
-                  db.collection('pemasukan').add({
-                    'nama': nama,
-                    'jumlahkas': jumlah,
-                    'tgl': datetimeinput.text,
-                  });
+              FutureBuilder(
+                future: getAnggota(),
+                builder: (conctext,
+                    AsyncSnapshot<List<QueryDocumentSnapshot>> snapshot) {
+                  // return CircularProgressIndicator();
 
-                  datetimeinput.text = '';
-                  jumlahkas.text = "";
-                  nama = '';
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    //   print(snapshot.data);
+                    return DropdownButton(
+                      disabledHint: Text("Disabled"),
+                      hint: Text(
+                          'Pilih Nama Anggota                                             '),
+                      underline: Container(
+                        padding: EdgeInsets.only(right: 30, left: 30),
+                        height: 2,
+                        width: double.infinity,
+                        color: Colors.grey,
+                      ),
+                      items: [
+                        for (var data in snapshot.data!)
+                          DropdownMenuItem(
+                            child: Text(data.get("name")),
+                            value: data.get("name"),
+                          ),
+                      ],
+                      value: nama,
+                      onChanged: (selected) {
+                        setState(() {
+                          nama =
+                              selected?.toString() ?? "Anggota Tidak diketahui";
+                        });
+                      },
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue[900],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 30, right: 30, left: 30),
+                child: TextFormField(
+                  controller: jumlahkas,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.attach_money_outlined),
+                    // border: const OutlineInputBorder(),
+                    labelText: 'Kas Anggota',
+                    hintText: 'Jumlah Kas',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Jumlah Kas belum diisi!';
+                    }
+                    return null;
+                  },
+                  onChanged: (String jml) {
+                    // Storing the value of the text entered in the variable value.
+                    jumlah = jml;
+                  },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(30),
+                child: TextFormField(
+                  controller: datetimeinput,
+                  decoration: InputDecoration(
+                      // border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.calendar_today),
+                      labelText: "Enter Date"),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Tanggal belum dipilih';
+                    }
+                    return null;
+                  },
+                  readOnly: true,
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2010),
+                        lastDate: DateTime(2030));
+                    if (pickedDate != null) {
+                      String formatDate =
+                          DateFormat('dd-MMMM-yyyy').format(pickedDate);
+                      setState(() {
+                        datetimeinput.text = formatDate;
+                      });
+                    } else {
+                      print("Date tidak dipilih");
+                      datetimeinput.text = "";
+                    }
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20, bottom: 20),
+                width: 200,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (_) => Pemasukan()));
+
+                      db.collection('pemasukan').add({
+                        'nama': nama,
+                        'jumlahkas': jumlah,
+                        'tgl': datetimeinput.text,
+                      });
+                      showDialog(
+                          context: context,
+                          builder: (_) => SimpleDialog(
+                                title: Text(
+                                  'Data Berhasil Ditambahkan',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ));
+                    }
+
+                    datetimeinput.text = '';
+                    jumlahkas.text = "";
+                    nama = '';
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue[900],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    "SIMPAN",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                   ),
                 ),
-                child: Text(
-                  "SIMPAN",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 }

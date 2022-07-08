@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:kas_app/screen/bottom_navbar.dart';
 import 'package:kas_app/screen/dashboard_screen.dart';
-import 'package:kas_app/screen/tambah_anggota.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

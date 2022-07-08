@@ -16,62 +16,32 @@ class dashboard_screen extends StatefulWidget {
 class _dashboard_screenState extends State<dashboard_screen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue,
-      body: SafeArea(
-        child: Stack(
-          alignment: AlignmentDirectional.topCenter,
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 25, top: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Text(
-                  //   'Total Kas',
-                  //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  // ),
-                  // Text('hai dude'),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 190),
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Text(''),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 120, left: 20, right: 20),
-              height: 150,
-              child: Card(
-                elevation: 15,
+    return SafeArea(
+        top: true,
+        child: Scaffold(
+            body: Container(
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+          ),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 190),
                 color: Colors.white,
-                // shadowColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(
-                      color: Colors.grey.withOpacity(0.5),
-                    )),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => Pemasukan()));
-                  },
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 120, left: 20, right: 20),
+                height: 150,
+                child: Card(
+                  elevation: 10,
+                  color: Colors.white,
+                  // shadowColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.5),
+                      )),
+
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -84,152 +54,160 @@ class _dashboard_screenState extends State<dashboard_screen> {
                   ),
                 ),
               ),
-            ),
-            Expanded(
+              Positioned.fill(
+                top: 280,
                 child: Container(
-                    margin: EdgeInsets.only(top: 280),
-                    child: GridView(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 30,
-                        mainAxisExtent: 150,
-                      ),
-                      padding: const EdgeInsets.all(15),
-                      children: [
-                        Card(
-                          elevation: 15,
-                          color: Colors.white,
-                          // shadowColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(
-                                color: Colors.grey.withOpacity(0.5),
-                              )),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => Pemasukan()));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'images/bank.png',
-                                  height: 50,
-                                  width: 50,
-                                ),
-                                Text(
-                                  'Pemasukan',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                )
-                              ],
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      GridView(
+                        padding: const EdgeInsets.all(18),
+                        shrinkWrap: true,
+                        primary: false,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          mainAxisExtent: 150,
+                        ),
+                        children: [
+                          Card(
+                            elevation: 15,
+                            color: Colors.white,
+                            // shadowColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: Colors.grey.withOpacity(0.5),
+                                )),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => Pemasukan()));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'images/bank.png',
+                                    height: 50,
+                                    width: 50,
+                                  ),
+                                  Text(
+                                    'Pemasukan',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Card(
-                          elevation: 15,
-                          color: Colors.white,
-                          shadowColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(
-                                color: Colors.white10.withOpacity(0.5),
-                              )),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => Pengeluaran()));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'images/cash.png',
-                                  height: 50,
-                                  width: 50,
-                                ),
-                                Text(
-                                  'Pengeluaran',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                )
-                              ],
+                          Card(
+                            elevation: 15,
+                            color: Colors.white,
+                            shadowColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: Colors.white10.withOpacity(0.5),
+                                )),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => Pengeluaran()));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'images/cash.png',
+                                    height: 50,
+                                    width: 50,
+                                  ),
+                                  Text(
+                                    'Pengeluaran',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Card(
-                          elevation: 15,
-                          color: Colors.white,
-                          shadowColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(
-                                color: Colors.white10.withOpacity(0.5),
-                              )),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (_) => Anggota()));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'images/member.png',
-                                  height: 50,
-                                  width: 50,
-                                ),
-                                Text(
-                                  'Anggota',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                )
-                              ],
+                          Card(
+                            elevation: 15,
+                            color: Colors.white,
+                            shadowColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: Colors.white10.withOpacity(0.5),
+                                )),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => Anggota()));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'images/member.png',
+                                    height: 50,
+                                    width: 50,
+                                  ),
+                                  Text(
+                                    'Anggota',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Card(
-                          elevation: 15,
-                          color: Colors.white,
-                          shadowColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(
-                                color: Colors.white10.withOpacity(0.5),
-                              )),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => CatatTransaksi()));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  'images/lap.png',
-                                  height: 50,
-                                  width: 50,
-                                ),
-                                Text(
-                                  'Laporan Keuangan',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                )
-                              ],
+                          Card(
+                            elevation: 15,
+                            color: Colors.white,
+                            shadowColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: Colors.white10.withOpacity(0.5),
+                                )),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => CatatTransaksi()));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'images/lap.png',
+                                    height: 50,
+                                    width: 50,
+                                  ),
+                                  Text(
+                                    'Laporan',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ))),
-          ],
-        ),
-      ),
-    );
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )));
   }
 }

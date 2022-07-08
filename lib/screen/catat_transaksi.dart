@@ -20,6 +20,11 @@ class _CatatTransaksiState extends State<CatatTransaksi> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.yellow,
+      body: Column(
+        children: [
+          
+        ],
+      ) ,
       // body: SafeArea(
       //   child: Column(
       //     children: [

@@ -24,6 +24,8 @@ class FirebaseController {
 }
 
 class _PengeluaranState extends State<Pengeluaran> {
+  final _formKey = GlobalKey<FormState>();
+
   TextEditingController datetimeinput = TextEditingController();
   TextEditingController keterangan = TextEditingController();
   TextEditingController jumlah = TextEditingController();
@@ -36,7 +38,6 @@ class _PengeluaranState extends State<Pengeluaran> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: FutureBuilder<QuerySnapshot>(
         future: FirebaseController().getPengeluaran(),
@@ -99,217 +100,148 @@ class _PengeluaranState extends State<Pengeluaran> {
       ),
     );
   }
-      // SafeArea(
-      //   child: Column(
-      //     children: [
-      //       SizedBox(
-      //         height: 20,
-      //       ),
-      //       Container(
-      //         alignment: Alignment.centerLeft,
-      //         child: IconButton(
-      //           icon: Icon(Icons.arrow_back),
-      //           onPressed: () {
-      //             Navigator.push(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                     builder: (context) => dashboard_screen()));
-      //           },
-      //         ),
-      //       ),
-      //       Container(
-      //         margin: EdgeInsets.all(30),
-      //         child: TextFormField(
-      //           controller: datetimeinput,
-      //           decoration: InputDecoration(
-      //               border: OutlineInputBorder(),
-      //               prefixIcon: Icon(Icons.calendar_today),
-      //               labelText: "Enter Date"),
-      //           readOnly: true,
-      //           onTap: () async {
-      //             DateTime? pickedDate = await showDatePicker(
-      //                 context: context,
-      //                 initialDate: DateTime.now(),
-      //                 firstDate: DateTime(2010),
-      //                 lastDate: DateTime(2030));
-      //             if (pickedDate != null) {
-      //               String formatDate =
-      //                   DateFormat('dd-MMMM-yyyy').format(pickedDate);
-      //               setState(() {
-      //                 datetimeinput.text = formatDate;
-      //               });
-      //             } else {
-      //               print("Date tidak dipilih");
-      //               datetimeinput.text = "";
-      //             }
-      //           },
-      //         ),
-      //       ),
-      //       Container(
-      //         margin: EdgeInsets.symmetric(horizontal: 30),
-      //         child: TextField(
-      //           controller: jumlah,
-      //           decoration: InputDecoration(
-      //             border: const OutlineInputBorder(),
-      //             labelText: 'Rp',
-      //             hintText: 'Tambahkan Jumlah',
-      //           ),
-      //         ),
-      //       ),
-      //       Container(
-      //         margin: EdgeInsets.only(top: 30, right: 30, left: 30),
-      //         child: TextField(
-      //           controller: keterangan,
-      //           decoration: InputDecoration(
-      //             border: const OutlineInputBorder(),
-      //             labelText: 'Keterangan',
-      //             hintText: 'Tambahkan Keterangan',
-      //           ),
-      //         ),
-      //       ),
-
-      //       SizedBox(height: 20,),
-      //       Container(
-      //         margin: EdgeInsets.only(top: 20, bottom: 20),
-      //         width: 200, height: 40,
-      //         child: ElevatedButton(
-      //           onPressed: () {
-      //             pengeluaran.add({
-      //               'tgl' : datetimeinput.text,
-      //               'jumlah' : int.tryParse(jumlah.text) ?? 0,
-      //               'keterangan' : keterangan.text,
-      //             }
-      //             );
-
-      //             datetimeinput.text = '';
-      //             jumlah.text = '';
-      //             keterangan.text = '';
-      //           },
-      //           style: ElevatedButton.styleFrom(
-      //             primary: Colors.blue[900],
-      //             shape: RoundedRectangleBorder(
-      //               borderRadius: BorderRadius.circular(30),
-      //             ),
-      //           ),
-      //           child: Text(
-      //             "SIMPAN",
-      //             style: TextStyle(
-      //               fontWeight: FontWeight.bold, fontSize: 13
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-  
-
 
   bodyWidget(AsyncSnapshot<QuerySnapshot<Object?>> snapshot) => SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => dashboard_screen()));
-                },
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
               ),
-            ),
-            Container(
-              margin: EdgeInsets.all(30),
-              child: TextFormField(
-                controller: datetimeinput,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.calendar_today),
-                    labelText: "Enter Date"),
-                readOnly: true,
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2010),
-                      lastDate: DateTime(2030));
-                  if (pickedDate != null) {
-                    String formatDate =
-                        DateFormat('dd-MMMM-yyyy').format(pickedDate);
-                    setState(() {
-                      datetimeinput.text = formatDate;
-                    });
-                  } else {
-                    print("Date tidak dipilih");
-                    datetimeinput.text = "";
-                  }
-                },
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 30),
-              child: TextField(
-                controller: jumlah,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: 'Rp',
-                  hintText: 'Tambahkan Jumlah',
-                ),
-                onChanged: (String jml) {
-                  // Storing the value of the text entered in the variable value.
-                  jumlahku = jml;
-                },
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 30, right: 30, left: 30),
-              child: TextField(
-                controller: keterangan,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: 'Keterangan',
-                  hintText: 'Tambahkan Keterangan',
+              Container(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => dashboard_screen()));
+                  },
                 ),
               ),
-            ),
+              Container(
+                margin: EdgeInsets.all(30),
+                child: TextFormField(
+                  controller: datetimeinput,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.calendar_today),
+                      labelText: "Enter Date"),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Tanggal belum dipilih';
+                    }
+                    return null;
+                  },
+                  readOnly: true,
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2010),
+                        lastDate: DateTime(2030));
+                    if (pickedDate != null) {
+                      String formatDate =
+                          DateFormat('dd-MMMM-yyyy').format(pickedDate);
+                      setState(() {
+                        datetimeinput.text = formatDate;
+                      });
+                    } else {
+                      print("Date tidak dipilih");
+                      datetimeinput.text = "";
+                    }
+                  },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 30),
+                child: TextFormField(
+                  controller: jumlah,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: 'Rp',
+                    hintText: 'Tambahkan Jumlah',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Jumlah uang tidak boleh kosong!';
+                    }
+                    return null;
+                  },
+                  onChanged: (String jml) {
+                    // Storing the value of the text entered in the variable value.
+                    jumlahku = jml;
+                  },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 30, right: 30, left: 30),
+                child: TextFormField(
+                  controller: keterangan,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: 'Keterangan',
+                    hintText: 'Tambahkan Keterangan',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Keterangan tidak boleh kosong!';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20, bottom: 20),
+                width: 200,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => Pengeluaran()));
 
-            SizedBox(height: 20,),
-            Container(
-              margin: EdgeInsets.only(top: 20, bottom: 20),
-              width: 200, height: 40,
-              child: ElevatedButton(
-                onPressed: () {
-                  db.collection('pengeluaran').add ({
-                    'tgl' : datetimeinput.text,
-                    'jumlah' : jumlah.text,
-                    'keterangan' : keterangan.text,
-                  }
-                  );
-
-                  datetimeinput.text = '';
-                  jumlah.text = '';
-                  keterangan.text = '';
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue[900],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                      db.collection('pengeluaran').add({
+                        'tgl': datetimeinput.text,
+                        'jumlah': jumlah.text,
+                        'keterangan': keterangan.text,
+                      });
+                      showDialog(
+                          context: context,
+                          builder: (_) => SimpleDialog(
+                                title: Text(
+                                  'Data Berhasil Ditambahkan',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ));
+                    }
+                    datetimeinput.text = '';
+                    jumlah.text = '';
+                    keterangan.text = '';
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue[900],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    "SIMPAN",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                   ),
                 ),
-                child: Text(
-                  "SIMPAN",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 13
-                  ),
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 }
