@@ -28,7 +28,7 @@ class _AnggotaState extends State<Anggota> {
         child: Column(
           children: [
             SizedBox(
-              height: 20,
+              height: 19,
             ),
             Container(
               alignment: Alignment.centerLeft,
