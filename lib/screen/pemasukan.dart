@@ -117,17 +117,28 @@ class _PemasukanState extends State<Pemasukan> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => dashboard_screen()));
-                  },
+              Row(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => dashboard_screen()));
+                      },
+                    ),
+                  ),
+                  Text(
+                  'Pemasukan',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
+                ],
               ),
               SizedBox(
                 height: 50,

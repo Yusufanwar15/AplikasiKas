@@ -41,7 +41,7 @@ class _TambahAnggotaState extends State<TambahAnggota> {
                       },
                     ),
                   ),
-                  Text('Tambah Anggota', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),)
+                  Text('Tambah Anggota', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)
                 ],
               ),
               
@@ -107,7 +107,7 @@ class _TambahAnggotaState extends State<TambahAnggota> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => TambahAnggota()));
+                          MaterialPageRoute(builder: (_) => Anggota()));
 
                       users.add({
                         'name': nameController.text,

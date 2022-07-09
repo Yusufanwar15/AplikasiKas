@@ -30,17 +30,28 @@ class _AnggotaState extends State<Anggota> {
             SizedBox(
               height: 19,
             ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => dashboard_screen()));
-                },
-              ),
+            Row(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => dashboard_screen()));
+                    },
+                  ),
+                ),
+                Text(
+                  'Anggota',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
             ),
             Container(
               child: ListView(

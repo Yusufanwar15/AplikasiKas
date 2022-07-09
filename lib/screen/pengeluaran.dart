@@ -109,17 +109,28 @@ class _PengeluaranState extends State<Pengeluaran> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => dashboard_screen()));
-                  },
+              Row(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => dashboard_screen()));
+                      },
+                    ),
+                  ),
+                  Text(
+                  'Pengeluaran',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
+                ],
               ),
               Container(
                 margin: EdgeInsets.all(30),

@@ -32,6 +32,7 @@ class _dashboard_screenState extends State<dashboard_screen> {
               Container(
                 margin: EdgeInsets.only(top: 120, left: 20, right: 20),
                 height: 150,
+                width: double.infinity,
                 child: Card(
                   elevation: 10,
                   color: Colors.white,
@@ -42,13 +43,18 @@ class _dashboard_screenState extends State<dashboard_screen> {
                         color: Colors.grey.withOpacity(0.5),
                       )),
 
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'Total Kas',
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 25),
+                      ),
+                      Text(
+                        'Rp.  ',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     ],
                   ),
