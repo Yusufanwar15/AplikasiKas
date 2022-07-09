@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kas_app/screen/anggota.dart';
-import 'package:kas_app/screen/catat_transaksi.dart';
+import 'package:kas_app/screen/laporan.dart';
 import 'package:kas_app/screen/pemasukan.dart';
 import 'package:kas_app/screen/pengeluaran.dart';
 import 'package:kas_app/screen/tambah_anggota.dart';
@@ -180,7 +180,7 @@ class _dashboard_screenState extends State<dashboard_screen> {
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => CatatTransaksi()));
+                                    builder: (_) =>Laporan()));
                               },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
