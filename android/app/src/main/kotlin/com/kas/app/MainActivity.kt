@@ -1,4 +1,4 @@
-package com.kas_app
+package com.kas.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kas_app">
+    package="com.kas.app">
    <application
         android:label="kas_app"
         android:name="${applicationName}"

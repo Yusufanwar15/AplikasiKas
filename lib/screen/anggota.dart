@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kas_app/screen/dashboard_screen.dart';
+import 'package:kas_app/screen/tambah_anggota.dart';
 
 final db = FirebaseFirestore.instance;
 
@@ -15,23 +16,42 @@ class _AnggotaState extends State<Anggota> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: FloatingActionButton(
+        onPressed: () {
+          // When the User clicks on the button, display a BottomSheet
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => TambahAnggota()));
+        },
+        child: const Icon(Icons.add),
+      ),
       body: SafeArea(
         child: Column(
           children: [
             SizedBox(
-              height: 20,
+              height: 19,
             ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => dashboard_screen()));
-                },
-              ),
+            Row(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => dashboard_screen()));
+                    },
+                  ),
+                ),
+                Text(
+                  'Anggota',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
             ),
             Container(
               child: ListView(
@@ -55,6 +75,18 @@ class _AnggotaState extends State<Anggota> {
                                 title: Text(documentSnapshot['name']),
                                 subtitle:
                                     Text(documentSnapshot['phone'].toString()),
+                                trailing: IconButton(
+                                  icon: const Icon(
+                                    Icons.delete_outline,
+                                  ),
+                                  onPressed: () {
+                                    // Here We Will Add The Delete Feature
+                                    db
+                                        .collection('users')
+                                        .doc(documentSnapshot.id)
+                                        .delete();
+                                  },
+                                ),
                               );
                             });
                       }),
