@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       /// APP BAR
       appBar: AppBar(
         title: const Text("PROFIL"),
+        automaticallyImplyLeading: false,
         centerTitle: true,
       ),
       body: SizedBox(
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     left: 35, right: 35, bottom: 20, top: 20),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/images/logo.png")),
+                      image: AssetImage("images/kas.png")),
                 ),
                 height: h / 4,
                 width: w / 1.5,

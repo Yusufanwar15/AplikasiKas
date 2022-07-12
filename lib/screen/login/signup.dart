@@ -172,7 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     margin: const EdgeInsets.only(right: 35),
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("assets/images/logo.png")),
+                          image: AssetImage("images/kas.png")),
                     ),
                     height: h / 4,
                     width: w / 1.5,

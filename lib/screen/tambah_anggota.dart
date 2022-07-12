@@ -21,36 +21,47 @@ class _TambahAnggotaState extends State<TambahAnggota> {
         child: Column(
           children: [
             SizedBox(height: 20,),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.push(context, 
-                  MaterialPageRoute(builder: (context) => dashboard_screen()));
-                },
-              ),
+            Row(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => dashboard_screen()));
+                    },
+                  ),
+                ),
+                Text(
+                  'Tambah Anggota',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
             ),
 
             SizedBox(height: 10,),
-            Container(
-              child: Text(
-                "Let's Get Started!",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 30
-                ),
-              ),
-            ),
+            // Container(
+            //   child: Text(
+            //     "Let's Get Started!",
+            //     style: TextStyle(
+            //       fontWeight: FontWeight.bold, fontSize: 30
+            //     ),
+            //   ),
+            // ),
 
-            SizedBox(height: 5,),
-            Container(
-              child: Text(
-                "Create an account to Q Allure to get all features",
-                style: TextStyle(
-                  fontSize: 14, color: Colors.grey
-                ),
-              ),
-            ),
+            // SizedBox(height: 5,),
+            // Container(
+            //   child: Text(
+            //     "Create an account to Q Allure to get all features",
+            //     style: TextStyle(
+            //       fontSize: 14, color: Colors.grey
+            //     ),
+            //   ),
+            // ),
 
             SizedBox(height: 10,),
             Container(

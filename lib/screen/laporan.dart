@@ -197,166 +197,157 @@ class _LaporanState extends State<Laporan> {
       SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  StreamBuilder(
-                      stream: db.collection('pemasukan').snapshots(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (!snapshot.hasData) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: snapshot.data?.docs.length,
-                            itemBuilder: (context, int index) {
-                              DocumentSnapshot documentSnapshot =
-                                  snapshot.data.docs[index];
-                              return ListTile(
-                                title: Container(
-                                  margin: EdgeInsets.only(bottom: 8),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        documentSnapshot['nama'],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                    ],
+            StreamBuilder(
+                stream: db.collection('pemasukan').snapshots(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return ListView.builder(
+                      physics: ScrollPhysics(parent: null),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data?.docs.length,
+                      itemBuilder: (context, int index) {
+                        DocumentSnapshot documentSnapshot =
+                            snapshot.data.docs[index];
+                        return Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            title: Container(
+                              margin: EdgeInsets.only(bottom: 8),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    documentSnapshot['nama'],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
                                   ),
+                                ],
+                              ),
+                            ),
+                            subtitle: Row(
+                              children: [
+                                Text(
+                                  'Kas :  ',
+                                  style: TextStyle(fontSize: 18),
                                 ),
-                                subtitle: Row(
-                                  children: [
-                                    Text(
-                                      'Kas :  ',
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    Text(
-                                      documentSnapshot['jumlahkas'].toString(),
-                                      style: TextStyle(
-                                          color: Color(0xff26a69a),
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      documentSnapshot['tgl'],
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                      textAlign: TextAlign.justify,
-                                    ),
-                                  ],
+                                Text(
+                                  documentSnapshot['jumlahkas'].toString(),
+                                  style: TextStyle(
+                                      color: Color(0xff26a69a),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                trailing: IconButton(
-                                  icon: const Icon(
-                                    Icons.delete_outline,
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  documentSnapshot['tgl'],
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
                                   ),
-                                  onPressed: () {
-                                    // Here We Will Add The Delete Feature
-                                    db
-                                        .collection('pemasukan')
-                                        .doc(documentSnapshot.id)
-                                        .delete();
-                                  },
+                                  textAlign: TextAlign.justify,
                                 ),
-                              );
-                            });
-                      }),
-                ],
-              ),
+                              ],
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(
+                                Icons.delete_outline,
+                              ),
+                              onPressed: () {
+                                // Here We Will Add The Delete Feature
+                                db
+                                    .collection('pemasukan')
+                                    .doc(documentSnapshot.id)
+                                    .delete();
+                              },
+                            ),
+                          ),
+                        );
+                      });
+                }),
+            SizedBox(
+              height: 10,
             ),
-            Container(
-              height: 1,
-              color: Colors.grey,
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 5),
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  StreamBuilder(
-                      stream: db.collection('pengeluaran').snapshots(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (!snapshot.hasData) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: snapshot.data?.docs.length,
-                            itemBuilder: (context, int index) {
-                              DocumentSnapshot documentSnapshot =
-                                  snapshot.data.docs[index];
-                              return ListTile(
-                                title: Container(
-                                  margin: EdgeInsets.only(bottom: 8),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        documentSnapshot['keterangan'],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 12,
-                                      ),
-                                      Text(
-                                        documentSnapshot['tgl'],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 20,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                subtitle: Row(
-                                  children: [
-                                    Text(
-                                      'Uang Keluar =>  ',
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.red),
+            StreamBuilder(
+                stream: db.collection('pengeluaran').snapshots(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return ListView.builder(
+                      physics: ScrollPhysics(parent: null),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data?.docs.length,
+                      itemBuilder: (context, int index) {
+                        DocumentSnapshot documentSnapshot =
+                            snapshot.data.docs[index];
+                        return Container(
+                          child: ListTile(
+                            title: Container(
+                              margin: EdgeInsets.only(bottom: 8),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    documentSnapshot['keterangan'],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
                                     ),
-                                    Text(
-                                      documentSnapshot['jumlah'].toString(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          color: Colors.red),
-                                    ),
-                                  ],
-                                ),
-                                trailing: IconButton(
-                                  icon: const Icon(
-                                    Icons.delete_outline,
                                   ),
-                                  onPressed: () {
-                                    // Here We Will Add The Delete Feature
-                                    db
-                                        .collection('pengeluaran')
-                                        .doc(documentSnapshot.id)
-                                        .delete();
-                                  },
+                                  SizedBox(
+                                    width: 12,
+                                  ),
+                                  Text(
+                                    documentSnapshot['tgl'],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            subtitle: Row(
+                              children: [
+                                Text(
+                                  'Uang Keluar =>  ',
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.red),
                                 ),
-                              );
-                            });
-                      }),
-                ],
-              ),
-            ),
+                                Text(
+                                  documentSnapshot['jumlah'].toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.red),
+                                ),
+                              ],
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(
+                                Icons.delete_outline,
+                              ),
+                              onPressed: () {
+                                // Here We Will Add The Delete Feature
+                                db
+                                    .collection('pengeluaran')
+                                    .doc(documentSnapshot.id)
+                                    .delete();
+                              },
+                            ),
+                          ),
+                        );
+                      });
+                }),
+                
           ],
         ),
       );
